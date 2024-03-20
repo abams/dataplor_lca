@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Something about choosing Rails test over rspec
+* Fixtures a weak, but work
+* Tested with Postman and dev database
 
 Things you may want to cover:
 
-* Ruby version
+* Install ruby 3.3.0 via [homebrew](https://brew.sh/)
+```
+$ brew install rbenv ruby-build
+$ rbenv init
+$ rbenv install 3.3.0
+```
 
-* System dependencies
-
-* Configuration
+* Setting up the application
+```$ bundle install```
 
 * Database creation
+Download and install the [postgress app](https://postgresapp.com/) if you do not have postgres on your machine
 
 * Database initialization
+`bin/rails db:setup`
+`bin/rails db:migrate`
 
-* How to run the test suite
+`bin/rails db:seed`
 
-* Services (job queues, cache servers, search engines, etc.)
+* Running the test suite
+`bin/rails test`
 
-* Deployment instructions
-
-* ...
+* Start server instructions
