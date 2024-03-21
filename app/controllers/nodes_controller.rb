@@ -10,7 +10,9 @@ class NodesController < ApplicationController
 		node_a = Node.find(params[:a])
 		node_b = Node.find(params[:b])
 
-		render json: { AAAA: a, BBBB: b }
+		common_ancestor = Nodes::CommonAncestorService.new(node_a, node_b).find_common_ancestor
+
+		render json: common_ancestor
 	end
 
 	private

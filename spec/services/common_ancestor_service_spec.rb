@@ -6,10 +6,10 @@ RSpec.describe Nodes::CommonAncestorService do
   # TODO: Maybe rename to example numbers given in csv
   # Exlpain it's for ease of evaluation
 	describe "#find_common_ancestor" do 
-    let(:root) { create(:node, parent_id: nil)}                                #        |-r-
-    let(:child_a) { create(:node, parent_id: root.id) }                        #     |-ca-|
-    let(:grandchild_aa) { create(:node, parent_id: child_a.id) }               #    gca   |
-    let(:grandchild_ab) { create(:node, parent_id: child_a.id) }               #         gcb -|
+    let(:root) { create(:node, parent_id: nil)}                                    #        |-r-
+    let(:child_a) { create(:node, parent_id: root.id) }                            #     |-ca-|
+    let(:grandchild_aa) { create(:node, parent_id: child_a.id) }                   #    gca   |
+    let(:grandchild_ab) { create(:node, parent_id: child_a.id) }                   #         gcb -|
     let(:great_grandchild_aba) { create(:node, parent_id: grandchild_ab.id)}       #             gcba
 
     context "when a given node is nil" do
@@ -68,22 +68,5 @@ RSpec.describe Nodes::CommonAncestorService do
 
       it { expect(subject.find_common_ancestor).to eq(expected_result) }
     end
-
-
-
-    # context "when common ancestor is greater than 1 level deep" do
-    #   let(:child_a) { create(:node, parent_id: root.id) }
-    #   let(:child_b) { create(:node, parent_id: root.id) }
-    #   let(:grandchild_b) { create(:node, parent_id: child_b.id) }
-    #   let(:expected_result) { { common_ancestor_id: root.id, depth: 3 } }
-
-    #   let(:node_a) { child_a }
-    #   let(:node_b) { grandchild_b }
-
-    #   it { expect(subject.find_common_ancestor).to eq(expected_result) }
-    # end
 	end
-
-
-
 end
