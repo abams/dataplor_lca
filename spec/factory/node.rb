@@ -1,7 +1,5 @@
 FactoryBot.define do 
 	factory :node do 
-		id: 1
-		parent_id: 1
-
+		sequence(:parent_id) { |n| n }
 	end
 end

@@ -3,7 +3,7 @@ require 'pry'
 class NodesController < ApplicationController
 	rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-	def common_anscestor
+	def common_ancestor
 		a = params[:a]
 		b = params[:b]
 

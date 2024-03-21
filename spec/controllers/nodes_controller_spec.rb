@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe NodesController do 
 	let(:node) { create(:node) }
 
-	describe "GET common_anscestor" do 
+	describe "GET common_ancestor" do 
 
 		context "without params" do 
 			it "returns 404" do 
-				get :common_anscestor
+				get :common_ancestor
 				
 				expect(response.status).to eq(404)
 			end
@@ -15,7 +15,7 @@ RSpec.describe NodesController do
 
 		context "with only 1 valid node param" do
 			it "returns 404" do 
-				get :common_anscestor, params: { a: node.id }
+				get :common_ancestor, params: { a: node.id }
 
 				expect(response.status).to eq(404)
 			end
@@ -25,7 +25,7 @@ RSpec.describe NodesController do
 			let(:other_node) { create(:node) }
 
 			it "returns 200" do 
-				get :common_anscestor, params: { a: node.id, b: other_node.id }
+				get :common_ancestor, params: { a: node.id, b: other_node.id }
 
 				expect(response.status).to eq(200)
 			end
