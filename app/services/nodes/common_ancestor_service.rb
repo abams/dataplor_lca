@@ -4,11 +4,12 @@ module Nodes
 		def initialize(node_a, node_b)
 			@node_a = node_a
 			@node_b = node_b
-			@paths = { left: [@node_a&.id], right: [@node_b&.id] }
+			@paths = { left: [@node_a&.id].compact, right: [@node_b&.id].compact }
 		end
 
 		def find_common_ancestor
-			return nil if @node_a.nil? || @node_b.nil? 
+			return nil if @paths[:left].empty? || @paths[:right].empty?
+			# return nil if @node_a.nil? || @node_b.nil?
 
 			# The instructions asked for node_a to be returned
 			# return @node_a if @node_a.id == @node_b.id
@@ -25,13 +26,13 @@ module Nodes
 				return { root_id: root_id, common_ancestor_id: common_ancestor, depth: depth }
 			end
 
-			left_parent_id = Node.find(@paths[:left].last).parent_id
-			right_parent_id = Node.find(@paths[:right].last).parent_id
+			@node_a = @node_a.parent if @node_a
+			@node_b = @node_b.parent if @node_b
 
-			return { root_id: nil , common_ancestor_id: nil , depth: nil } if left_parent_id.nil? and right_parent_id.nil?
+			return { root_id: nil , common_ancestor_id: nil , depth: nil } if @node_a.nil? and @node_b.nil?
 
-			@paths[:left] << left_parent_id if left_parent_id
-			@paths[:right] << right_parent_id if right_parent_id
+			@paths[:left] << @node_a.id if @node_a
+			@paths[:right] << @node_b.id if @node_b
 
 			find_common_ancestor
 		end
