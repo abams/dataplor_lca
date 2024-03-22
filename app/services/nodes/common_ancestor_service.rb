@@ -21,13 +21,14 @@ module Nodes
 			common_ancestor = (@paths[:left] & @paths[:right]).first
 			
 			if common_ancestor.present? 
+				# binding.pry # can refactor this to use parent ... too tired rn tho
 				root_id, depth = find_root(common_ancestor)
 
 				return { root_id: root_id, common_ancestor_id: common_ancestor, depth: depth }
 			end
 
-			@node_a = @node_a.parent if @node_a
-			@node_b = @node_b.parent if @node_b
+			@node_a = @node_a&.parent
+			@node_b = @node_b&.parent
 
 			return { root_id: nil , common_ancestor_id: nil , depth: nil } if @node_a.nil? and @node_b.nil?
 
