@@ -6,11 +6,11 @@ RSpec.describe Nodes::CommonAncestorService do
   # TODO: Maybe rename to example numbers given in csv
   # Exlpain it's for ease of evaluation
 	describe "#find_common_ancestor" do 
-    let(:root) { create(:node, parent_id: nil)}                                    #        |-r-
-    let(:child_a) { create(:node, parent_id: root.id) }                            #     |-ca-|
-    let(:grandchild_aa) { create(:node, parent_id: child_a.id) }                   #    gca   |
-    let(:grandchild_ab) { create(:node, parent_id: child_a.id) }                   #         gcb -|
-    let(:great_grandchild_aba) { create(:node, parent_id: grandchild_ab.id)}       #             gcba
+    let(:root) { create(:node, parent_id: nil) }                                    #        |-r-
+    let(:child_a) { create(:node, parent_id: root.id) }                             #     |-ca-|
+    let(:grandchild_aa) { create(:node, parent_id: child_a.id) }                    #    gca   |
+    let(:grandchild_ab) { create(:node, parent_id: child_a.id) }                    #         gcb -|
+    let(:great_grandchild_aba) { create(:node, parent_id: grandchild_ab.id) }       #             gcba
 
     context "when a given node is nil" do
 			let(:node_a) { root }
