@@ -12,7 +12,7 @@ class BirdsController < ApplicationController
 
     all_node_ids = nodes.each_with_object([]) do |node, arr|
       arr << node.id
-      arr.unshift(*node.all_children.map(&:id))
+      arr << node.ancestor_ids + node.descendant_ids
     end.uniq
 
     bird_ids = Bird.where(node_id: all_node_ids).pluck(:id)

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Nodes::AncestorsController do
   describe 'GET index' do
-    let(:subject) { get :index, params: { a: node&.id, b: other_node&.id } }
+    let(:subject) { get :common_ancestor, params: { a: node&.id, b: other_node&.id } }
 
     let(:node) { nil }
     let(:other_node) { nil }
@@ -23,7 +23,30 @@ RSpec.describe Nodes::AncestorsController do
       let(:root) { create(:node) }
       let(:node) { create(:node, parent_id: root.id) }
       let(:other_node) { create(:node, parent_id: root.id) }
-      let(:expected_response) { Nodes::CommonAncestorService.new(node, other_node).find_common_ancestor }
+      let(:expected_response) do
+        {
+          root_id: root.id,
+          lowest_common_ancestor: root.id,
+          depth: 0
+        }
+      end
+
+      it { expect(subject.status).to eq(200) }
+      it { expect(JSON.parse(subject.body).symbolize_keys).to eq(expected_response) }
+    end
+
+    context 'when common ancestor is not found' do
+      let(:root) { create(:node) }
+      let(:other_root) { create(:node) }
+      let(:node) { create(:node, parent_id: root.id) }
+      let(:other_node) { create(:node, parent_id: other_root.id) }
+      let(:expected_response) do
+        {
+          root_id: nil,
+          lowest_common_ancestor: nil,
+          depth: nil
+        }
+      end
 
       it { expect(subject.status).to eq(200) }
       it { expect(JSON.parse(subject.body).symbolize_keys).to eq(expected_response) }

@@ -9,7 +9,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-[
+nodes = [
   [2_138_692, 2_138_651],
   [2_138_651, 1_045_200],
   [1_045_178, 1_045_177],
@@ -3155,6 +3155,28 @@
   [434_080, 82_781],
   [928_905, 928_889],
   [962_050, 962_024]
-].each do |id, parent_id|
-  Node.find_or_create_by!(id:, parent_id:)
+]
+
+nodes.each do |id, parent_id|
+  parent = Node.find_or_create_by!(id: parent_id)
+  node = Node.find_by(id:)
+
+  if node
+    node.update!(parent:)
+  else
+    Node.create!(id:, parent:)
+  end
+
+  Rails.logger.debug '.'
+
+# Some nodes in the csv are opposites of each other,
+# => 928905,928889 <> 928889, 928905
+rescue StandardError => e # file seems to have a some issues, didn't spend too much time investigating
+  next if e.message == 'Validation failed: Node cannot be a descendant of itself.'
+
+  Rails.logger.debug "#{id} #{parent_id}"
+
+  raise e
 end
+
+Rails.logger.debug

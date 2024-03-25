@@ -10,22 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_22_144004) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_25_164201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "birds", force: :cascade do |t|
-    t.integer "node_id"
+    t.bigint "node_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["node_id"], name: "index_birds_on_node_id"
   end
 
   create_table "nodes", force: :cascade do |t|
-    t.integer "parent_id"
+    t.string "ancestry", null: false, collation: "C"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_nodes_on_parent_id"
+    t.index ["ancestry"], name: "index_nodes_on_ancestry"
   end
 
 end

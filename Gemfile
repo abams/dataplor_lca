@@ -22,11 +22,14 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
+# https://github.com/stefankroes/ancestry
+gem 'ancestry'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'pry-rails'
 end
 
 group :development do
